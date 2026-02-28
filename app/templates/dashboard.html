@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CleanRoute AQI</title>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+      crossorigin=""
+    />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  </head>
+  <body>
+    <div id="status" class="status">API: Waiting</div>
+    <div class="app">
+      <div id="map"></div>
+      <aside class="panel">
+        <h2>CleanRoute AQI</h2>
+        <p class="help">Search by address, use GPS, or click anywhere on the map.</p>
+        <div id="error" class="error error-hidden" role="alert" aria-live="assertive">
+          <div class="error-header">
+            <strong>Request Error</strong>
+            <button id="error-close" class="error-close" type="button" aria-label="Dismiss error">&times;</button>
+          </div>
+          <p id="error-text" class="error-text"></p>
+        </div>
+
+        <form id="address-form" class="stack">
+          <label for="address-input" class="k">Address Search</label>
+          <div class="input-row">
+            <input id="address-input" type="text" placeholder="123 Main St, Philadelphia, PA" />
+            <button type="submit">Search</button>
+          </div>
+        </form>
+
+        <form id="coords-form" class="stack">
+          <label class="k">Coordinates Search</label>
+          <div class="input-row">
+            <input id="lat-input" type="text" placeholder="Latitude" />
+            <input id="lng-input" type="text" placeholder="Longitude" />
+            <button type="submit">Go</button>
+          </div>
+        </form>
+
+        <div class="stack">
+          <button id="gps-btn" type="button">Use My Location</button>
+        </div>
+
+        <div class="row"><div class="k">AQI</div><div class="v" id="aqi">-</div></div>
+        <div class="row"><div class="k">Category</div><div class="v" id="cat">-</div></div>
+        <div class="row"><div class="k">Pollutant</div><div class="v" id="pollutant">-</div></div>
+        <div class="row"><div class="k">Reporting Area</div><div class="v" id="area">-</div></div>
+        <div class="row"><div class="k">Observed</div><div class="v" id="time">-</div></div>
+        <div class="row"><div class="k">Address</div><div class="v" id="address">-</div></div>
+        <div class="row"><div class="k">Latitude</div><div class="v" id="lat">-</div></div>
+        <div class="row"><div class="k">Longitude</div><div class="v" id="lon">-</div></div>
+
+        <div class="meter"><div id="needle" class="needle"></div></div>
+        <div id="legend" class="legend"></div>
+      </aside>
+    </div>
+
+    <script
+      src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+      integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+      crossorigin=""
+    ></script>
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+  </body>
+</html>
